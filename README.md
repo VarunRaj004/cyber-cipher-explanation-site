@@ -1,6 +1,8 @@
-# Cyber Cipher explanation site
+# eVoice explanation site
 
-A standalone, buildless project website for the Cyber Cipher privacy-preserving complaint platform. It contains no database credentials, API secrets, or runtime dependency on the MVP repository.
+A standalone, buildless project website for the eVoice privacy-preserving complaint platform. It contains no database credentials, API secrets, or runtime dependency on the MVP repository.
+
+The repository includes `social-preview-evoice.png` and Open Graph/Twitter metadata for rich link previews. The metadata currently uses `https://cyber-cipher-explanation-site.vercel.app/`; update the canonical and image URLs in `index.html` if the final Vercel domain differs.
 
 ## Configure live-demo links
 

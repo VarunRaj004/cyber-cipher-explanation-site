@@ -3,8 +3,28 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Cyber Cipher is a privacy-preserving, accountable complaint platform experimental MVP.">
-  <title>Cyber Cipher — How the system works</title>
+  <meta name="description" content="eVoice is a privacy-preserving, accountable complaint platform experimental MVP.">
+  <meta name="theme-color" content="#1e2028">
+  <link rel="canonical" href="https://cyber-cipher-explanation-site.vercel.app/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="eVoice">
+  <meta property="og:title" content="eVoice — Your voice, not your name!">
+  <meta property="og:description" content="A privacy-preserving complaint platform where eligibility is proven without exposing identity, handlers investigate privately, and outcomes remain publicly auditable.">
+  <meta property="og:url" content="https://cyber-cipher-explanation-site.vercel.app/">
+  <meta property="og:image" content="https://cyber-cipher-explanation-site.vercel.app/social-preview-evoice.png">
+  <meta property="og:image:secure_url" content="https://cyber-cipher-explanation-site.vercel.app/social-preview-evoice.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1726">
+  <meta property="og:image:height" content="911">
+  <meta property="og:image:alt" content="eVoice privacy-preserving complaint platform">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="eVoice — Your voice, not your name!">
+  <meta name="twitter:description" content="Anonymous complaint submission, private handling, community verification, and independent public audit.">
+  <meta name="twitter:image" content="https://cyber-cipher-explanation-site.vercel.app/social-preview-evoice.png">
+  <meta name="twitter:image:alt" content="eVoice privacy-preserving complaint platform">
+  <title>eVoice — How the system works</title>
   <link rel="stylesheet" href="./styles.css">
   <script src="./config.js" defer></script>
   <script src="./app.js" defer></script>
@@ -12,9 +32,9 @@
 <body class="explain-page">
   <div class="reading-progress" aria-hidden="true"><span id="reading-progress"></span></div>
   <header class="explain-nav">
-    <a class="brand" href="#cover" aria-label="Cyber Cipher home">
-      <span class="brand-mark">CC</span>
-      <span><strong>Cyber Cipher</strong><small>Project field guide · MVP edition</small></span>
+    <a class="brand" href="#cover" aria-label="eVoice home">
+      <span class="brand-mark">eV</span>
+      <span><strong>eVoice</strong><small>Project field guide · MVP edition</small></span>
     </a>
     <nav aria-label="Project navigation">
       <a href="#story">The story</a><a href="#protocol">Protocol</a><a href="#architecture">Architecture</a><a href="#limits">Limits</a>
@@ -28,13 +48,18 @@
       <div class="cover-copy reveal">
         <p class="comic-kicker">Anonymous · Accountable · Verifiable</p>
         <h1>THE COMPLAINT PLATFORM THAT CAN VERIFY YOU—WITHOUT IDENTIFYING YOU.</h1>
-        <p class="cover-deck">Cyber Cipher lets an eligible person submit an encrypted complaint, lets an assigned handler investigate it privately, and lets the community verify a redacted version without exposing the complainant.</p>
+        <p class="cover-deck">eVoice lets an eligible person submit an encrypted complaint, lets an assigned handler investigate it privately, and lets the community verify a redacted version without exposing the complainant.</p>
         <div class="cover-actions">
           <a class="comic-button yellow" href="#story">Read the field guide</a>
           <a class="comic-button cream" href="#" data-portal="complaint">Try the complaint demo</a>
         </div>
       </div>
       <div class="cover-art reveal" aria-label="A protected anonymous complaint moving through independent checks">
+        <div class="orbit orbit-one" aria-hidden="true"></div>
+        <div class="orbit orbit-two" aria-hidden="true"></div>
+        <div class="data-particle particle-one" aria-hidden="true">01</div>
+        <div class="data-particle particle-two" aria-hidden="true">ZK</div>
+        <div class="data-particle particle-three" aria-hidden="true">✓</div>
         <div class="burst"></div>
         <div class="cipher-shield"><span>?</span><b>PROOF</b></div>
         <div class="speech">“Verify my right to speak.<br><strong>Not who I am.</strong>”</div>
@@ -50,7 +75,7 @@
         <p class="comic-kicker red">The problem</p>
         <h2>A COMPLAINT SHOULD NOT REQUIRE SURRENDERING YOUR IDENTITY.</h2>
       </div>
-      <p>Traditional complaint channels often place identity, evidence, investigation, and final authority in one system. That makes retaliation, silent suppression, and unverifiable outcomes difficult to rule out. Cyber Cipher divides those powers.</p>
+      <p>Traditional complaint channels often place identity, evidence, investigation, and final authority in one system. That makes retaliation, silent suppression, and unverifiable outcomes difficult to rule out. eVoice divides those powers.</p>
     </section>
 
     <section class="contents reveal" aria-labelledby="contents-title">
@@ -156,6 +181,6 @@
     </section>
   </main>
 
-  <footer class="explain-footer"><b>CYBER CIPHER</b><span>Privacy-preserving complaint accountability</span><a href="#cover">Back to cover ↑</a></footer>
+  <footer class="explain-footer"><b>eVOICE</b><span>Privacy-preserving complaint accountability</span><a href="#cover">Back to cover ↑</a></footer>
 </body>
 </html>
