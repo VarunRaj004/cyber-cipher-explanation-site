@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Cyber Cipher is a privacy-preserving, accountable complaint platform experimental MVP.">
+  <title>Cyber Cipher — How the system works</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./config.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body class="explain-page">
+  <div class="reading-progress" aria-hidden="true"><span id="reading-progress"></span></div>
+  <header class="explain-nav">
+    <a class="brand" href="#cover" aria-label="Cyber Cipher home">
+      <span class="brand-mark">CC</span>
+      <span><strong>Cyber Cipher</strong><small>Project field guide · MVP edition</small></span>
+    </a>
+    <nav aria-label="Project navigation">
+      <a href="#story">The story</a><a href="#protocol">Protocol</a><a href="#architecture">Architecture</a><a href="#limits">Limits</a>
+    </nav>
+    <a class="mini-cta" href="#" data-portal="complaint">Open demo →</a>
+  </header>
+
+  <main class="explain-main">
+    <section class="cover" id="cover">
+      <div class="issue-stamp">Issue 01 · Experimental MVP</div>
+      <div class="cover-copy reveal">
+        <p class="comic-kicker">Anonymous · Accountable · Verifiable</p>
+        <h1>THE COMPLAINT PLATFORM THAT CAN VERIFY YOU—WITHOUT IDENTIFYING YOU.</h1>
+        <p class="cover-deck">Cyber Cipher lets an eligible person submit an encrypted complaint, lets an assigned handler investigate it privately, and lets the community verify a redacted version without exposing the complainant.</p>
+        <div class="cover-actions">
+          <a class="comic-button yellow" href="#story">Read the field guide</a>
+          <a class="comic-button cream" href="#" data-portal="complaint">Try the complaint demo</a>
+        </div>
+      </div>
+      <div class="cover-art reveal" aria-label="A protected anonymous complaint moving through independent checks">
+        <div class="burst"></div>
+        <div class="cipher-shield"><span>?</span><b>PROOF</b></div>
+        <div class="speech">“Verify my right to speak.<br><strong>Not who I am.</strong>”</div>
+        <div class="proof-chip chip-one">ZK ✓</div>
+        <div class="proof-chip chip-two">AES ✓</div>
+        <div class="proof-chip chip-three">AUDIT ✓</div>
+      </div>
+    </section>
+
+    <section class="manifesto reveal" id="story">
+      <span class="section-number">00</span>
+      <div>
+        <p class="comic-kicker red">The problem</p>
+        <h2>A COMPLAINT SHOULD NOT REQUIRE SURRENDERING YOUR IDENTITY.</h2>
+      </div>
+      <p>Traditional complaint channels often place identity, evidence, investigation, and final authority in one system. That makes retaliation, silent suppression, and unverifiable outcomes difficult to rule out. Cyber Cipher divides those powers.</p>
+    </section>
+
+    <section class="contents reveal" aria-labelledby="contents-title">
+      <div class="contents-title"><span>Inside this issue</span><h2 id="contents-title">ONE COMPLAINT. FOUR INDEPENDENT VIEWS.</h2></div>
+      <ol>
+        <li><a href="#chapter-one"><b>01</b><span>Prove eligibility</span><small>Identity authority</small></a></li>
+        <li><a href="#protocol"><b>02</b><span>Submit privately</span><small>Complainant device</small></a></li>
+        <li><a href="#chapter-three"><b>03</b><span>Investigate safely</span><small>Assigned handler</small></a></li>
+        <li><a href="#chapter-four"><b>04</b><span>Verify publicly</span><small>Community + auditor</small></a></li>
+      </ol>
+    </section>
+
+    <section class="chapter reveal" id="chapter-one">
+      <header class="chapter-head"><span>Chapter 01</span><h2>PROVE ELIGIBILITY—THEN BREAK THE IDENTITY LINK.</h2></header>
+      <div class="chapter-grid">
+        <div class="paper-panel narrative">
+          <p class="dropcap">The Identity Authority checks the person once. It confirms membership and issues a one-use entitlement through an RSA blind-signature flow.</p>
+          <p>Because the serial is blinded during signing, the authority cannot later match the presented entitlement to the issuance event. The entitlement proves permission, not identity.</p>
+          <div class="callout green"><b>What crosses the boundary?</b><span>A valid, unlinkable entitlement—not the NIC, account ID, or membership-tree position.</span></div>
+        </div>
+        <div class="mechanic-card">
+          <span class="mechanic-label">Entitlement profile</span>
+          <strong>RSA–3072</strong>
+          <code>RSABSSA-SHA384-PSS-Randomized</code>
+          <ul><li>128-bit random serial</li><li>One successful submission</li><li>Valid only for the matter window</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter dark-chapter reveal" id="protocol">
+      <header class="chapter-head"><span>Chapter 02</span><h2>THE DEVICE BUILDS THE PRIVACY ENVELOPE.</h2></header>
+      <div class="protocol-strip" aria-label="Complaint submission protocol sequence">
+        <article><b>1</b><h3>Prove</h3><p>Groth16 proves current membership without disclosing the member.</p></article>
+        <i>→</i>
+        <article><b>2</b><h3>Encrypt</h3><p>AES-256-GCM protects complaint text and evidence before upload.</p></article>
+        <i>→</i>
+        <article><b>3</b><h3>Spend</h3><p>The blind entitlement is consumed atomically only after acceptance.</p></article>
+        <i>→</i>
+        <article><b>4</b><h3>Receipt</h3><p>A randomized CBOR receipt is signed with a dedicated Ed25519 key.</p></article>
+      </div>
+      <div class="privacy-equation"><span>ELIGIBLE</span><b>+</b><span>ONE USE</span><b>+</b><span>ENCRYPTED</span><b>≠</b><span>IDENTIFIED</span></div>
+      <p class="chapter-note">A 60-second signed proof-session lease and a 128-bit challenge ID bind the proof to the active session. The membership circuit uses Groth16 over BN254 with Poseidon and accepts the current root only.</p>
+    </section>
+
+    <section class="chapter reveal" id="chapter-three">
+      <header class="chapter-head"><span>Chapter 03</span><h2>PRIVATE INVESTIGATION. CONTROLLED PUBLICATION.</h2></header>
+      <div class="split-story">
+        <article class="role-card handler-card"><span>Admin side</span><h3>THE ASSIGNED HANDLER</h3><p>Only assigned, WebAuthn-authenticated staff unwrap the case key, decrypt evidence, investigate, and record a signed finding.</p><ul><li>Full encrypted case context</li><li>Substantiated / unsubstantiated decision</li><li>No community vote manipulation</li></ul></article>
+        <div class="boundary-bolt">TRUST<br>BOUNDARY</div>
+        <article class="role-card public-card"><span>Public side</span><h3>THE REDACTED DERIVATIVE</h3><p>Publication approval creates a sanitized statement. The community never receives private evidence, complainant data, or the handler outcome before voting.</p><ul><li>Approved redacted statement only</li><li>Anonymous complaint-scoped vote</li><li>Public aggregate, not private case</li></ul></article>
+      </div>
+    </section>
+
+    <section class="chapter audit-chapter reveal" id="chapter-four">
+      <header class="chapter-head"><span>Chapter 04</span><h2>THE COMMUNITY CHECKS. THE AUDITOR COMPARES.</h2></header>
+      <div class="verdict-layout">
+        <div class="verdict-vote"><span>Community result</span><strong>SUPPORT 03</strong><small>Anonymous, one vote per complaint scope</small></div>
+        <div class="versus-burst">VS</div>
+        <div class="verdict-handler"><span>Handler finding</span><strong>UNSUBSTANTIATED</strong><small>Signed private investigation result</small></div>
+        <div class="verdict-final"><span>Auditor outcome</span><strong>CONFLICTING</strong><p>The mismatch becomes a signed audit event for escalation. A community result cannot automatically close, delete, or overwrite the private complaint.</p></div>
+      </div>
+    </section>
+
+    <section class="chapter reveal" id="architecture">
+      <header class="chapter-head"><span>System map</span><h2>FIVE ZONES. MINIMUM NECESSARY DISCLOSURE.</h2></header>
+      <div class="zone-flow">
+        <article><b>Identity</b><span>Enrollment</span><span>Membership</span><span>Recovery</span></article><i>→</i>
+        <article><b>Client</b><span>Blind token</span><span>ZK proof</span><span>Encryption</span></article><i>→</i>
+        <article><b>Complaint</b><span>Proof lease</span><span>Nullifier</span><span>Mailbox</span></article><i>→</i>
+        <article><b>Handler</b><span>Assignment</span><span>Decryption</span><span>Finding</span></article><i>→</i>
+        <article><b>Public</b><span>Redaction</span><span>Vote</span><span>Audit</span></article>
+      </div>
+      <p class="zone-note">The SaaS prototype is tenant-fixed at startup and routes identity, complaint, handler, and public records to four separate PostgreSQL trust-zone databases.</p>
+    </section>
+
+    <section class="chapter recovery-chapter reveal">
+      <header class="chapter-head"><span>Lost-device scenario</span><h2>RECOVER WITHOUT CALLING A SERVICE LINE.</h2></header>
+      <div class="recovery-flow">
+        <div><b>01</b><p>User safeguards a 128-bit recovery seed established earlier.</p></div><span>→</span>
+        <div><b>02</b><p>A five-minute recovery proof authorizes old-device revocation.</p></div><span>→</span>
+        <div><b>03</b><p>A new Ed25519 device key is enrolled and the old device is cancelled.</p></div><span>→</span>
+        <div><b>04</b><p>Recovery material rotates after every successful use.</p></div>
+      </div>
+    </section>
+
+    <section class="chapter reveal" id="limits">
+      <header class="chapter-head"><span>Read the fine print</span><h2>WHAT THIS MVP PROVES—AND WHAT IT DOESN'T.</h2></header>
+      <div class="limits-grid">
+        <article class="does"><h3>IT DOES</h3><ul><li>Demonstrate separated role portals</li><li>Enforce command allow-lists per portal</li><li>Run the complaint-to-audit journey</li><li>Package protocol artifacts and tests</li><li>Show tenant-fixed SaaS boundaries</li></ul></article>
+        <article class="does-not"><h3>IT DOESN'T YET</h3><ul><li>Replace an independent security audit</li><li>Provide production HSM or secret management</li><li>Claim coercion resistance or endpoint safety</li><li>Persist the browser demonstration workflow</li><li>Make community voting legally dispositive</li></ul></article>
+      </div>
+    </section>
+
+    <section class="demo-doors reveal">
+      <p class="comic-kicker">Choose your role</p><h2>WALK THROUGH THE LIVE MVP.</h2>
+      <div class="door-grid">
+        <a href="#" data-portal="complaint"><span>01</span><b>COMPLAINANT</b><small>Log, encrypt, submit, receive</small></a>
+        <a href="#" data-portal="admin"><span>02</span><b>ADMIN</b><small>Handle, redact, approve, audit</small></a>
+        <a href="#" data-portal="community"><span>03</span><b>COMMUNITY</b><small>Review the redaction and vote</small></a>
+      </div>
+      <p class="portal-config-note" id="portal-config-note" hidden>Live demo URLs are not configured for this deployment.</p>
+      <p class="synthetic-note">Experimental MVP · Synthetic data only · Not a production complaint service</p>
+    </section>
+  </main>
+
+  <footer class="explain-footer"><b>CYBER CIPHER</b><span>Privacy-preserving complaint accountability</span><a href="#cover">Back to cover ↑</a></footer>
+</body>
+</html>
